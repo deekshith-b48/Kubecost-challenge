@@ -8,7 +8,7 @@ export interface CloudProviderData {
     monthlyCost: number;
     efficiency: number;
     status: StatusType;
-    trend: number; // % change vs last month
+    trend: number;
     resources: {
         cpu: number;
         memory: number;
@@ -26,46 +26,68 @@ export interface CostMetrics {
     cloudCost: number;
 }
 
-const PROVIDERS: Array<{ name: string; provider: ProviderType; status: StatusType; efficiency: number; trend: number }> = [
-    { name: 'AWS Production', provider: 'aws', status: 'warning', efficiency: 78, trend: 12.4 },
-    { name: 'Azure Staging', provider: 'azure', status: 'optimized', efficiency: 65, trend: -3.1 },
-    { name: 'Google Cloud Dev', provider: 'google-cloud', status: 'optimized', efficiency: 82, trend: 5.8 },
-    { name: 'On-Premise Legacy', provider: 'on-premise', status: 'critical', efficiency: 45, trend: 0.2 },
+/* ── Fully static mock data — no external API required ─────────────── */
+const MOCK_PROVIDERS: CloudProviderData[] = [
+    {
+        id: '1',
+        name: 'AWS Production',
+        provider: 'aws',
+        status: 'warning',
+        efficiency: 78,
+        trend: 12.4,
+        monthlyCost: 2450,
+        resources: { cpu: 128, memory: 512, storage: 2048 },
+    },
+    {
+        id: '2',
+        name: 'Azure Staging',
+        provider: 'azure',
+        status: 'optimized',
+        efficiency: 65,
+        trend: -3.1,
+        monthlyCost: 2490,
+        resources: { cpu: 64, memory: 256, storage: 1024 },
+    },
+    {
+        id: '3',
+        name: 'Google Cloud Dev',
+        provider: 'google-cloud',
+        status: 'optimized',
+        efficiency: 82,
+        trend: 5.8,
+        monthlyCost: 2730,
+        resources: { cpu: 32, memory: 128, storage: 512 },
+    },
+    {
+        id: '4',
+        name: 'On-Premise Legacy',
+        provider: 'on-premise',
+        status: 'critical',
+        efficiency: 45,
+        trend: 0.2,
+        monthlyCost: 2890,
+        resources: { cpu: 48, memory: 192, storage: 4096 },
+    },
 ];
 
-export const fetchCloudData = async (): Promise<CloudProviderData[]> => {
-    const response = await fetch('https://jsonplaceholder.typicode.com/users');
-    if (!response.ok) throw new Error('Failed to fetch cloud data');
-    const users = await response.json();
+const MOCK_METRICS: CostMetrics = {
+    totalCost: 16460,
+    cpuCost: 5420,
+    gpuCost: 2188,
+    ramCost: 3414,
+    pvCost: 2292,
+    networkCost: 2150,
+    cloudCost: 996,
+};
 
-    return PROVIDERS.map((tpl, i) => ({
-        id: String(i + 1),
-        name: tpl.name,
-        provider: tpl.provider,
-        status: tpl.status,
-        efficiency: tpl.efficiency,
-        trend: tpl.trend,
-        monthlyCost: Math.floor(users[i].id * 600) + [1850, 1290, 930, 490][i],
-        resources: {
-            cpu: [128, 64, 32, 48][i],
-            memory: [512, 256, 128, 192][i],
-            storage: [2048, 1024, 512, 4096][i],
-        },
-    }));
+/* Async wrappers kept for API compatibility with useCostData hooks */
+export const fetchCloudData = async (): Promise<CloudProviderData[]> => {
+    // Small artificial delay so loading state flickers nicely
+    await new Promise(r => setTimeout(r, 300));
+    return MOCK_PROVIDERS;
 };
 
 export const fetchCostMetrics = async (): Promise<CostMetrics> => {
-    const response = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=6');
-    if (!response.ok) throw new Error('Failed to fetch metrics');
-    const posts = await response.json();
-
-    return {
-        totalCost: 16460,
-        cpuCost: posts[0].id * 162,  // 3240
-        gpuCost: posts[1].id * 94,   // 1880  (rounded)
-        ramCost: posts[2].id * 138,  // 4140
-        pvCost: posts[3].id * 73,   // 2920 (rounded)
-        networkCost: posts[4].id * 50, // 2500 -> cap
-        cloudCost: posts[5].id * 34,   // 2040 -> cap remainder
-    };
+    await new Promise(r => setTimeout(r, 300));
+    return MOCK_METRICS;
 };

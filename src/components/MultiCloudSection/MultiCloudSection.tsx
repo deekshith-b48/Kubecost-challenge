@@ -1,6 +1,6 @@
 'use client';
 import React, { useRef, useState, useEffect, useMemo } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { useCloudProviders, useCostMetrics } from '@/hooks/useCostData';
 import { CloudProviderData } from '@/lib/api';
@@ -232,21 +232,24 @@ export const MultiCloudSection: React.FC = () => {
   const cardRef3 = useRef<HTMLDivElement>(null);
   const cardRefs = useMemo(() => [cardRef0, cardRef1, cardRef2, cardRef3], []);
 
-  const inView = useInView(arenaRef as React.RefObject<Element>, { once: true, margin: '-100px' });
   const [connectedCount, setConnectedCount] = useState(0);
   const [selectedProvider, setSelectedProvider] = useState<CloudProviderData | null>(null);
 
+  // Start connection animation as soon as data is available
+  // (not gated on useInView which can misbehave in SSR/static environments)
   useEffect(() => {
-    if (!inView || !providers || connectedCount > 0) return;
+    if (!providers || connectedCount > 0) return;
     let i = 0;
     const tick = () => {
       i += 1;
       setConnectedCount(i);
-      if (i < providers.length) setTimeout(tick, 340);
+      if (i < providers.length) setTimeout(tick, 380);
     };
-    setTimeout(tick, 700);
+    // Small delay so the layout has painted and ResizeObserver has measured
+    const timer = setTimeout(tick, 900);
+    return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inView, providers]);
+  }, [providers]);
 
   if (pLoading || mLoading) return (
     <Section id="cloud">

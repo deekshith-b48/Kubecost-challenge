@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ProviderType } from '@/lib/api';
 
@@ -139,7 +139,13 @@ export const ConnectionLines: React.FC<ConnectionLinesProps> = ({
 }) => {
     const [paths, setPaths] = useState<(PathInfo | null)[]>([]);
     const [dims, setDims] = useState({ w: 0, h: 0 });
+    const [mounted, setMounted] = useState(false);
     const rafRef = useRef<number | undefined>(undefined);
+    const retryRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+    const retryCount = useRef(0);
+
+    // Ensure we only run SVG logic client-side
+    useEffect(() => { setMounted(true); }, []);
 
     const computePaths = useCallback(() => {
         const arena = arenaRef.current;
@@ -148,7 +154,16 @@ export const ConnectionLines: React.FC<ConnectionLinesProps> = ({
 
         const arenaRect = arena.getBoundingClientRect();
         const centerRect = center.getBoundingClientRect();
-        if (arenaRect.width === 0) return;
+
+        // Retry if DOM hasn't been painted yet (common in SSR/static deployments)
+        if (arenaRect.width === 0) {
+            if (retryCount.current < 15) {
+                retryCount.current += 1;
+                retryRef.current = setTimeout(computePaths, 150);
+            }
+            return;
+        }
+        retryCount.current = 0;
 
         setDims({ w: arenaRect.width, h: arenaRect.height });
 
@@ -205,10 +220,12 @@ export const ConnectionLines: React.FC<ConnectionLinesProps> = ({
             observer.disconnect();
             window.removeEventListener('resize', computePaths);
             if (rafRef.current) cancelAnimationFrame(rafRef.current);
+            if (retryRef.current) clearTimeout(retryRef.current);
         };
     }, [computePaths, arenaRef]);
 
-    if (dims.w === 0) return null;
+    // Don't render SVG during SSR or before mount
+    if (!mounted || dims.w === 0) return null;
 
     return (
         <svg
