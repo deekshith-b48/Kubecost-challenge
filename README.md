@@ -2,13 +2,26 @@
 
 > **Option B (0:45–0:55)** · Multi-Cloud Kubernetes Cost Intelligence Dashboard
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-kubecost--challenge.vercel.app-10B981?style=for-the-badge&logo=vercel&logoColor=white)](https://kubecost-challenge.vercel.app/)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Framer Motion](https://img.shields.io/badge/Framer%20Motion-latest-EF0080?style=for-the-badge&logo=framer)](https://www.framer.com/motion/)
+
+**🔗 [https://kubecost-challenge.vercel.app/](https://kubecost-challenge.vercel.app/)**
+
 A feature-rich, production-quality landing page that showcases a Kubernetes cost management platform — inspired by the Kubecost product demo. Built with Next.js, Framer Motion, TypeScript, and Styled-components.
 
 ---
 
 ## Live Preview
 
+| | |
+|---|---|
+| 🌐 **Deployed** | [https://kubecost-challenge.vercel.app/](https://kubecost-challenge.vercel.app/) |
+| 📦 **Repository** | [https://github.com/deekshith-b48/Kubecost-challenge](https://github.com/deekshith-b48/Kubecost-challenge) |
+
 ```bash
+# Run locally
 npm install && npm run dev
 # → http://localhost:3000
 ```
@@ -217,6 +230,15 @@ JSONPlaceholder user records are deterministically mapped to realistic cloud pro
 - `prefers-reduced-motion` disables continuous animations
 
 ---
+
+## Deployment
+
+**Deployed on Vercel:** [https://kubecost-challenge.vercel.app/](https://kubecost-challenge.vercel.app/)
+
+- Automatic HTTPS via Vercel edge network
+- Preview deployments on every push
+- Static export — zero cold-start latency
+- Global CDN distribution
 
 ## How to Run
 
