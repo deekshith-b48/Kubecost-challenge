@@ -324,9 +324,9 @@ export const MultiCloudSection: React.FC = () => {
         transition={{ delay: 0.1, duration: 0.55 }}
       >
         {[
-          { label: 'Total Monthly Spend', val: `$${(total / 1000).toFixed(1)}k`, c: '#10B981' },
-          { label: 'Avg Efficiency', val: `${avgEff}%`, c: '#4285F4' },
-          { label: 'Cloud Providers', val: `${providers.length}`, c: '#FF9900' },
+          { label: 'Total Monthly Spend', val: `$${(total / 1000).toFixed(1)}k`, c: 'var(--color-cpu)' },
+          { label: 'Avg Efficiency', val: `${avgEff}%`, c: 'var(--color-storage)' },
+          { label: 'Cloud Providers', val: `${providers.length}`, c: 'var(--color-gpu)' },
         ].map(s => (
           <StatItem key={s.label} $c={s.c}>
             <StatLbl>{s.label}</StatLbl>

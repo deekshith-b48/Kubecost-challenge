@@ -178,79 +178,79 @@ const UpdatedText = styled.span`
 
 /* ─── Bar config ──────────────────────────────────────────────────── */
 const BARS = [
-    { key: 'cpuCost', label: 'CPU', color: '#10B981' },
-    { key: 'gpuCost', label: 'GPU', color: '#FF9900' },
-    { key: 'ramCost', label: 'RAM', color: '#0089D6' },
-    { key: 'pvCost', label: 'PV', color: '#4285F4' },
-    { key: 'networkCost', label: 'Network', color: '#8B5CF6' },
-    { key: 'cloudCost', label: 'Cloud', color: '#EC4899' },
+  { key: 'cpuCost', label: 'CPU', color: 'var(--color-cpu)' },
+  { key: 'gpuCost', label: 'GPU', color: 'var(--color-gpu)' },
+  { key: 'ramCost', label: 'RAM', color: 'var(--color-ram)' },
+  { key: 'pvCost', label: 'PV', color: 'var(--color-storage)' },
+  { key: 'networkCost', label: 'Network', color: 'var(--color-network)' },
+  { key: 'cloudCost', label: 'Cloud', color: 'var(--color-cloud)' },
 ] as const;
 
 /* ─── Component ──────────────────────────────────────────────────── */
 interface CostDashboardProps {
-    metrics: CostMetrics;
-    isActive: boolean;
+  metrics: CostMetrics;
+  isActive: boolean;
 }
 
 export const CostDashboard: React.FC<CostDashboardProps> = ({ metrics, isActive }) => {
-    const values = BARS.map(b => metrics[b.key as keyof CostMetrics] as number);
-    const maxVal = Math.max(...values);
+  const values = BARS.map(b => metrics[b.key as keyof CostMetrics] as number);
+  const maxVal = Math.max(...values);
 
-    return (
-        <Wrap
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4, duration: 0.6, type: 'spring', stiffness: 120 }}
-        >
-            <Header>
-                <div>
-                    <Title>Global Cost Overview</Title>
-                    <LiveBadge>Live</LiveBadge>
-                </div>
-                <TotalBlock>
-                    <TotalLabel>Monthly Run Rate</TotalLabel>
-                    <TotalValue>
-                        {isActive
-                            ? <CountUp end={metrics.totalCost} duration={2} prefix="$" />
-                            : '$0'}
-                    </TotalValue>
-                </TotalBlock>
-            </Header>
+  return (
+    <Wrap
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 0.4, duration: 0.6, type: 'spring', stiffness: 120 }}
+    >
+      <Header>
+        <div>
+          <Title>Global Cost Overview</Title>
+          <LiveBadge>Live</LiveBadge>
+        </div>
+        <TotalBlock>
+          <TotalLabel>Monthly Run Rate</TotalLabel>
+          <TotalValue>
+            {isActive
+              ? <CountUp end={metrics.totalCost} duration={2} prefix="$" />
+              : '$0'}
+          </TotalValue>
+        </TotalBlock>
+      </Header>
 
-            <Chart>
-                {BARS.map(({ key, label, color }, i) => {
-                    const value = metrics[key as keyof CostMetrics] as number;
-                    const pct = Math.max((value / maxVal) * 100, 4);
+      <Chart>
+        {BARS.map(({ key, label, color }, i) => {
+          const value = metrics[key as keyof CostMetrics] as number;
+          const pct = Math.max((value / maxVal) * 100, 4);
 
-                    return (
-                        <BarRow key={key}>
-                            <BarLabel>{label}</BarLabel>
-                            <BarTrack>
-                                <BarFill
-                                    $color={color}
-                                    initial={{ width: 0 }}
-                                    animate={{ width: isActive ? `${pct}%` : '0%' }}
-                                    transition={{ delay: 0.8 + i * 0.1, duration: 0.7, ease: 'easeOut' }}
-                                >
-                                    <BarEnd $color={color} />
-                                </BarFill>
-                            </BarTrack>
-                            <BarValue>
-                                {isActive
-                                    ? <CountUp end={value} duration={1.5} prefix="$" />
-                                    : '$0'}
-                            </BarValue>
-                        </BarRow>
-                    );
-                })}
-            </Chart>
+          return (
+            <BarRow key={key}>
+              <BarLabel>{label}</BarLabel>
+              <BarTrack>
+                <BarFill
+                  $color={color}
+                  initial={{ width: 0 }}
+                  animate={{ width: isActive ? `${pct}%` : '0%' }}
+                  transition={{ delay: 0.8 + i * 0.1, duration: 0.7, ease: 'easeOut' }}
+                >
+                  <BarEnd $color={color} />
+                </BarFill>
+              </BarTrack>
+              <BarValue>
+                {isActive
+                  ? <CountUp end={value} duration={1.5} prefix="$" />
+                  : '$0'}
+              </BarValue>
+            </BarRow>
+          );
+        })}
+      </Chart>
 
-            <Footer>
-                <span style={{ fontSize: '0.65rem', color: 'var(--color-text-tertiary)' }}>
-                    6 cost categories
-                </span>
-                <UpdatedText>Updated just now</UpdatedText>
-            </Footer>
-        </Wrap>
-    );
+      <Footer>
+        <span style={{ fontSize: '0.65rem', color: 'var(--color-text-tertiary)' }}>
+          6 cost categories
+        </span>
+        <UpdatedText>Updated just now</UpdatedText>
+      </Footer>
+    </Wrap>
+  );
 };

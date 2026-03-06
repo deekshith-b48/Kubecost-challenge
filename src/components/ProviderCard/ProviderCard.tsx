@@ -6,30 +6,13 @@ import { CloudProviderData, ProviderType, StatusType } from '@/lib/api';
 import { CountUp } from '../ui/CountUp';
 import { PROVIDER_ICONS } from './ProviderIcons';
 
-/* ─── Color maps ─────────────────────────────────────────────────────── */
-const PROVIDER_COLOR: Record<ProviderType, string> = {
-  aws: '#FF9900',
-  azure: '#0089D6',
-  'google-cloud': '#4285F4',
-  'on-premise': '#8B5CF6',
-};
-const PROVIDER_LIGHT: Record<ProviderType, string> = {
-  aws: 'rgba(255,153,0,0.12)',
-  azure: 'rgba(0,137,214,0.12)',
-  'google-cloud': 'rgba(66,133,244,0.12)',
-  'on-premise': 'rgba(139,92,246,0.12)',
-};
-const PROVIDER_GLOW: Record<ProviderType, string> = {
-  aws: 'rgba(255,153,0,0.30)',
-  azure: 'rgba(0,137,214,0.30)',
-  'google-cloud': 'rgba(66,133,244,0.30)',
-  'on-premise': 'rgba(139,92,246,0.30)',
-};
-const STATUS_COLOR: Record<StatusType, string> = {
-  optimized: '#22C55E',
-  warning: '#F59E0B',
-  critical: '#EF4444',
-};
+import { PROVIDER_COLOR_TOKEN, RESOURCE_COLOR_TOKEN, STATUS_COLOR_TOKEN } from '@/tokens';
+
+/* ─── Color helpers — CSS var references, never raw hex ─────────────── */
+const pc = (p: ProviderType) => PROVIDER_COLOR_TOKEN[p];
+const pl = (p: ProviderType) => `var(--color-${p === 'google-cloud' ? 'google-cloud' : p === 'on-premise' ? 'on-premise' : p}-light)`;
+const pg = (p: ProviderType) => `var(--color-${p === 'google-cloud' ? 'google-cloud' : p === 'on-premise' ? 'on-premise' : p}-glow)`;
+const sc = (s: StatusType) => STATUS_COLOR_TOKEN[s];
 
 /* ─── Styled components ──────────────────────────────────────────────── */
 
@@ -52,7 +35,7 @@ const Card = styled(motion.div) <{ $p: ProviderType; $sel: boolean }>`
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 2px;
-    background: ${({ $p }) => PROVIDER_COLOR[$p]};
+    background: ${({ $p }) => pc($p)};
     opacity: ${({ $sel }) => $sel ? 1 : 0};
     transition: opacity 0.3s ease;
   }
@@ -62,16 +45,16 @@ const Card = styled(motion.div) <{ $p: ProviderType; $sel: boolean }>`
     content: '';
     position: absolute;
     inset: 0;
-    background: ${({ $p }) => PROVIDER_LIGHT[$p]};
+    background: ${({ $p }) => pl($p)};
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
   }
 
   &:hover {
-    border-color: ${({ $p }) => PROVIDER_COLOR[$p]};
+    border-color: ${({ $p }) => pc($p)};
     box-shadow:
-      0 0 28px ${({ $p }) => PROVIDER_GLOW[$p]},
+      0 0 28px ${({ $p }) => pg($p)},
       0 8px 32px rgba(0,0,0,0.4);
 
     &::before { opacity: 1; }
@@ -79,9 +62,9 @@ const Card = styled(motion.div) <{ $p: ProviderType; $sel: boolean }>`
   }
 
   ${({ $sel, $p }) => $sel && css`
-    border-color: ${PROVIDER_COLOR[$p]};
+    border-color: ${pc($p)};
     box-shadow:
-      0 0 36px ${PROVIDER_GLOW[$p]},
+      0 0 36px ${pg($p)},
       0 12px 40px rgba(0,0,0,0.5);
 
     &::before { opacity: 1; }
@@ -109,12 +92,12 @@ const IconWrap = styled.div<{ $p: ProviderType }>`
   height: 48px;
   flex-shrink: 0;
   border-radius: var(--radius-md);
-  background: ${({ $p }) => PROVIDER_LIGHT[$p]};
-  border: 1px solid ${({ $p }) => PROVIDER_COLOR[$p]}33;
+  background: ${({ $p }) => pl($p)};
+  border: 1px solid ${({ $p }) => pc($p)}33;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${({ $p }) => PROVIDER_COLOR[$p]};
+  color: ${({ $p }) => pc($p)};
 
   svg {
     width: 26px;
@@ -137,15 +120,15 @@ const StatusPill = styled.span<{ $s: StatusType }>`
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: ${({ $s }) => STATUS_COLOR[$s]};
+  color: ${({ $s }) => sc($s)};
 
   &::before {
     content: '';
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: ${({ $s }) => STATUS_COLOR[$s]};
-    box-shadow: 0 0 7px ${({ $s }) => STATUS_COLOR[$s]};
+    background: ${({ $s }) => sc($s)};
+    box-shadow: 0 0 7px ${({ $s }) => sc($s)};
     animation: ${({ $s }) =>
     $s === 'optimized' ? 'status-pulse 2s ease infinite' : 'none'
   };
@@ -164,9 +147,8 @@ const TrendPill = styled.span<{ $up: boolean }>`
   font-size: 0.65rem;
   font-weight: 700;
   font-family: var(--font-mono);
-  color: ${({ $up }) => ($up ? '#EF4444' : '#22C55E')};
-  background: ${({ $up }) =>
-    $up ? 'rgba(239,68,68,0.12)' : 'rgba(34,197,94,0.12)'};
+  color: ${({ $up }) => $up ? 'var(--color-accent-error)' : 'var(--color-accent-success)'};
+  background: ${({ $up }) => $up ? 'var(--color-accent-error-light)' : 'var(--color-accent-success-light)'};
   padding: 3px 7px;
   border-radius: var(--radius-full);
 `;
@@ -198,10 +180,10 @@ const CostValue = styled.div<{ $p: ProviderType }>`
   font-size: 1.75rem;
   font-weight: 800;
   font-family: var(--font-mono);
-  color: ${({ $p }) => PROVIDER_COLOR[$p]};
+  color: ${({ $p }) => pc($p)};
   line-height: 1;
   letter-spacing: -0.02em;
-  filter: drop-shadow(0 0 10px ${({ $p }) => PROVIDER_GLOW[$p]});
+  filter: drop-shadow(0 0 10px ${({ $p }) => pg($p)});
 `;
 
 const CostRate = styled.div`
@@ -248,10 +230,10 @@ const EffFill = styled(motion.div) <{ $p: ProviderType }>`
   height: 100%;
   border-radius: var(--radius-full);
   background: linear-gradient(90deg,
-    ${({ $p }) => PROVIDER_COLOR[$p]},
-    ${({ $p }) => PROVIDER_GLOW[$p]}
+    ${({ $p }) => pc($p)},
+    ${({ $p }) => pg($p)}
   );
-  box-shadow: 0 0 8px ${({ $p }) => PROVIDER_GLOW[$p]};
+  box-shadow: 0 0 8px ${({ $p }) => pg($p)};
 `;
 
 /* Resources grid */
@@ -259,10 +241,12 @@ const ResGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-sm);
-  padding: var(--space-md) 0;
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
-  margin-bottom: var(--space-md);
+  /* Logical properties — respects LTR/RTL and block/inline axes */
+  padding-block: var(--space-md);
+  padding-inline: 0;
+  margin-block-end: var(--space-md);
+  border-block-start: 1px solid var(--color-border);
+  border-block-end:   1px solid var(--color-border);
 `;
 
 const ResItem = styled.div`
@@ -277,16 +261,16 @@ const ResIcon = styled.div<{ $p: ProviderType }>`
   width: 28px;
   height: 28px;
   border-radius: 6px;
-  background: ${({ $p }) => PROVIDER_LIGHT[$p]};
+  background: ${({ $p }) => pl($p)};
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 2px;
+  margin-block-end: 2px;
 
   svg {
     width: 14px;
     height: 14px;
-    color: ${({ $p }) => PROVIDER_COLOR[$p]};
+    color: ${({ $p }) => pc($p)};
   }
 `;
 
@@ -311,8 +295,8 @@ const HintBar = styled.div<{ $p: ProviderType }>`
   align-items: center;
   gap: var(--space-sm);
   padding: 8px var(--space-md);
-  background: ${({ $p }) => PROVIDER_LIGHT[$p]};
-  border: 1px solid ${({ $p }) => PROVIDER_COLOR[$p]}2A;
+  background: ${({ $p }) => pl($p)};
+  border: 1px solid ${({ $p }) => pc($p)}2A;
   border-radius: var(--radius-md);
   font-size: 0.72rem;
   font-weight: 600;
@@ -358,8 +342,8 @@ const StorageIcon = () => (
     <rect x="2" y="7" width="12" height="4" rx="1.5" stroke="currentColor" strokeWidth="1.2" fill="none" />
     <rect x="2" y="12" width="12" height="2" rx="1" stroke="currentColor" strokeWidth="1.2" fill="none" />
     <circle cx="13" cy="4" r="1" fill="currentColor" opacity="0.5" />
-    <circle cx="13" cy="9" r="1" fill="#10B981" />
-    <circle cx="13" cy="13" r="0.8" fill="#10B981" />
+    <circle cx="13" cy="9" r="1" fill="var(--color-accent-primary)" />
+    <circle cx="13" cy="13" r="0.8" fill="var(--color-accent-primary)" />
   </svg>
 );
 

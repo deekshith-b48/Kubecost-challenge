@@ -1,14 +1,9 @@
 'use client';
-import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ProviderType } from '@/lib/api';
+import { PROVIDER_COLOR_TOKEN } from '@/tokens';
 
-const PROVIDER_COLOR: Record<ProviderType, string> = {
-    aws: '#FF9900',
-    azure: '#0089D6',
-    'google-cloud': '#4285F4',
-    'on-premise': '#8B5CF6',
-};
 
 interface ConnectionLinesProps {
     providers: Array<{ id: string; provider: ProviderType }>;
@@ -199,7 +194,7 @@ export const ConnectionLines: React.FC<ConnectionLinesProps> = ({
                 `  ${endX.toFixed(1)} ${dashCY.toFixed(1)}`,
             ].join(' ');
 
-            return { d, color: PROVIDER_COLOR[providers[i].provider], length: approxLength(d) };
+            return { d, color: PROVIDER_COLOR_TOKEN[providers[i].provider], length: approxLength(d) };
         });
 
         setPaths(newPaths);

@@ -1,62 +1,116 @@
 export const tokens = {
     colors: {
-        // Background
-        bgPrimary: "var(--color-bg-primary)",
-        bgSecondary: "var(--color-bg-secondary)",
-        bgTertiary: "var(--color-bg-tertiary)",
+        // Backgrounds
+        bgPrimary: 'var(--color-bg-primary)',
+        bgSecondary: 'var(--color-bg-secondary)',
+        bgTertiary: 'var(--color-bg-tertiary)',
+        bgCard: 'var(--color-bg-card)',
+        bgGlass: 'var(--color-bg-glass)',
 
         // Text
-        textPrimary: "var(--color-text-primary)",
-        textSecondary: "var(--color-text-secondary)",
-        textTertiary: "var(--color-text-tertiary)",
+        textPrimary: 'var(--color-text-primary)',
+        textSecondary: 'var(--color-text-secondary)',
+        textTertiary: 'var(--color-text-tertiary)',
 
-        // Accent - Primary (Kubecost Green)
-        accentPrimary: "var(--color-accent-primary)",
-        accentPrimaryHover: "var(--color-accent-primary-hover)",
-        accentPrimaryLight: "var(--color-accent-primary-light)",
+        // Brand accent — Kubecost green
+        accentPrimary: 'var(--color-accent-primary)',
+        accentPrimaryHover: 'var(--color-accent-primary-hover)',
+        accentPrimaryLight: 'var(--color-accent-primary-light)',
+        accentPrimaryGlow: 'var(--color-accent-primary-glow)',
 
-        // Accent - Success
-        accentSuccess: "var(--color-accent-success)",
-        accentSuccessLight: "var(--color-accent-success-light)",
+        // Semantic status
+        accentSuccess: 'var(--color-accent-success)',
+        accentSuccessLight: 'var(--color-accent-success-light)',
+        accentWarning: 'var(--color-accent-warning)',
+        accentWarningLight: 'var(--color-accent-warning-light)',
+        accentError: 'var(--color-accent-error)',
+        accentErrorLight: 'var(--color-accent-error-light)',
 
-        // Cloud Provider Colors
-        aws: "var(--color-aws)",
-        azure: "var(--color-azure)",
-        googleCloud: "var(--color-google-cloud)",
-        onPremise: "var(--color-on-premise)",
+        // Resource category colors  (referenced via CSS var — never raw hex in components)
+        cpu: 'var(--color-cpu)',
+        gpu: 'var(--color-gpu)',
+        ram: 'var(--color-ram)',
+        storage: 'var(--color-storage)',
+        network: 'var(--color-network)',
+        cloud: 'var(--color-cloud)',
 
-        // Utility
-        border: "var(--color-border)",
-        borderLight: "var(--color-border-light)",
+        // Cloud Provider Brand Colors
+        aws: 'var(--color-aws)',
+        awsLight: 'var(--color-aws-light)',
+        azure: 'var(--color-azure)',
+        azureLight: 'var(--color-azure-light)',
+        gcp: 'var(--color-google-cloud)',
+        gcpLight: 'var(--color-google-cloud-light)',
+        onPrem: 'var(--color-on-premise)',
+        onPremLight: 'var(--color-on-premise-light)',
+
+        // UI
+        border: 'var(--color-border)',
+        borderHover: 'var(--color-border-hover)',
+        borderLight: 'var(--color-border-light)',
     },
 
     spacing: {
-        xs: "var(--space-xs)",
-        sm: "var(--space-sm)",
-        md: "var(--space-md)",
-        lg: "var(--space-lg)",
-        xl: "var(--space-xl)",
-        "2xl": "var(--space-2xl)",
+        xs: 'var(--space-xs)',
+        sm: 'var(--space-sm)',
+        md: 'var(--space-md)',
+        lg: 'var(--space-lg)',
+        xl: 'var(--space-xl)',
+        '2xl': 'var(--space-2xl)',
+        '3xl': 'var(--space-3xl)',
     },
 
     radius: {
-        sm: "var(--radius-sm)",
-        md: "var(--radius-md)",
-        lg: "var(--radius-lg)",
-        full: "var(--radius-full)",
+        sm: 'var(--radius-sm)',
+        md: 'var(--radius-md)',
+        lg: 'var(--radius-lg)',
+        xl: 'var(--radius-xl)',
+        full: 'var(--radius-full)',
     },
 
     shadows: {
-        sm: "var(--shadow-sm)",
-        md: "var(--shadow-md)",
-        lg: "var(--shadow-lg)",
+        sm: 'var(--shadow-sm)',
+        md: 'var(--shadow-md)',
+        lg: 'var(--shadow-lg)',
+        glowGreen: 'var(--shadow-glow-green)',
     },
 
     transitions: {
-        fast: "150ms cubic-bezier(0.4, 0, 0.2, 1)",
-        base: "300ms cubic-bezier(0.4, 0, 0.2, 1)",
-        slow: "500ms cubic-bezier(0.4, 0, 0.2, 1)",
+        fast: 'var(--transition-fast)',
+        base: 'var(--transition-base)',
+        slow: 'var(--transition-slow)',
+    },
+
+    typography: {
+        sans: 'var(--font-sans)',
+        mono: 'var(--font-mono)',
     },
 } as const;
 
 export type Tokens = typeof tokens;
+
+// ── Convenience maps — use these in component data arrays ──────────────────
+// Maps ProviderType → CSS variable token (no raw hex in components)
+export const PROVIDER_COLOR_TOKEN: Record<string, string> = {
+    aws: tokens.colors.aws,
+    azure: tokens.colors.azure,
+    'google-cloud': tokens.colors.gcp,
+    'on-premise': tokens.colors.onPrem,
+};
+
+// Maps resource type → CSS variable token
+export const RESOURCE_COLOR_TOKEN: Record<string, string> = {
+    cpu: tokens.colors.cpu,
+    gpu: tokens.colors.gpu,
+    ram: tokens.colors.ram,
+    storage: tokens.colors.storage,
+    network: tokens.colors.network,
+    cloud: tokens.colors.cloud,
+};
+
+// Maps status → CSS variable token
+export const STATUS_COLOR_TOKEN: Record<string, string> = {
+    optimized: tokens.colors.accentSuccess,
+    warning: tokens.colors.accentWarning,
+    critical: tokens.colors.accentError,
+};

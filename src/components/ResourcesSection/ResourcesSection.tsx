@@ -126,120 +126,120 @@ const Desc = styled.div`
 
 /* ── SVG Icons ─────────────────────────────────────────── */
 const CPUIcon = ({ color }: { color: string }) => (
-    <svg viewBox="0 0 40 40" fill="none">
-        <rect x="10" y="10" width="20" height="20" rx="3" stroke={color} strokeWidth="2" fill="none" />
-        <rect x="14" y="14" width="12" height="12" rx="1.5" fill={color} opacity="0.35" />
-        {/* Pins */}
-        {[14, 18, 22, 26].map(x => <line key={x} x1={x} y1="8" x2={x} y2="10" stroke={color} strokeWidth="1.8" strokeLinecap="round" />)}
-        {[14, 18, 22, 26].map(x => <line key={x} x1={x} y1="30" x2={x} y2="32" stroke={color} strokeWidth="1.8" strokeLinecap="round" />)}
-        {[14, 18, 22, 26].map(y => <line key={y} x1="8" y1={y} x2="10" y2={y} stroke={color} strokeWidth="1.8" strokeLinecap="round" />)}
-        {[14, 18, 22, 26].map(y => <line key={y} x1="30" y1={y} x2="32" y2={y} stroke={color} strokeWidth="1.8" strokeLinecap="round" />)}
-    </svg>
+  <svg viewBox="0 0 40 40" fill="none">
+    <rect x="10" y="10" width="20" height="20" rx="3" stroke={color} strokeWidth="2" fill="none" />
+    <rect x="14" y="14" width="12" height="12" rx="1.5" fill={color} opacity="0.35" />
+    {/* Pins */}
+    {[14, 18, 22, 26].map(x => <line key={x} x1={x} y1="8" x2={x} y2="10" stroke={color} strokeWidth="1.8" strokeLinecap="round" />)}
+    {[14, 18, 22, 26].map(x => <line key={x} x1={x} y1="30" x2={x} y2="32" stroke={color} strokeWidth="1.8" strokeLinecap="round" />)}
+    {[14, 18, 22, 26].map(y => <line key={y} x1="8" y1={y} x2="10" y2={y} stroke={color} strokeWidth="1.8" strokeLinecap="round" />)}
+    {[14, 18, 22, 26].map(y => <line key={y} x1="30" y1={y} x2="32" y2={y} stroke={color} strokeWidth="1.8" strokeLinecap="round" />)}
+  </svg>
 );
 
 const GPUIcon = ({ color }: { color: string }) => (
-    <svg viewBox="0 0 40 40" fill="none">
-        <rect x="6" y="12" width="28" height="18" rx="3" stroke={color} strokeWidth="2" fill="none" />
-        <circle cx="15" cy="21" r="5" stroke={color} strokeWidth="2" fill="none" />
-        <circle cx="25" cy="21" r="5" stroke={color} strokeWidth="2" fill="none" />
-        <circle cx="15" cy="21" r="2" fill={color} opacity="0.4" />
-        <circle cx="25" cy="21" r="2" fill={color} opacity="0.4" />
-        {/* Fan blades */}
-        <line x1="6" y1="30" x2="6" y2="34" stroke={color} strokeWidth="1.8" strokeLinecap="round" />
-        <line x1="34" y1="30" x2="34" y2="34" stroke={color} strokeWidth="1.8" strokeLinecap="round" />
-        <line x1="12" y1="30" x2="12" y2="34" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
-        <line x1="28" y1="30" x2="28" y2="34" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
+  <svg viewBox="0 0 40 40" fill="none">
+    <rect x="6" y="12" width="28" height="18" rx="3" stroke={color} strokeWidth="2" fill="none" />
+    <circle cx="15" cy="21" r="5" stroke={color} strokeWidth="2" fill="none" />
+    <circle cx="25" cy="21" r="5" stroke={color} strokeWidth="2" fill="none" />
+    <circle cx="15" cy="21" r="2" fill={color} opacity="0.4" />
+    <circle cx="25" cy="21" r="2" fill={color} opacity="0.4" />
+    {/* Fan blades */}
+    <line x1="6" y1="30" x2="6" y2="34" stroke={color} strokeWidth="1.8" strokeLinecap="round" />
+    <line x1="34" y1="30" x2="34" y2="34" stroke={color} strokeWidth="1.8" strokeLinecap="round" />
+    <line x1="12" y1="30" x2="12" y2="34" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+    <line x1="28" y1="30" x2="28" y2="34" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+  </svg>
 );
 
 const RAMIcon = ({ color }: { color: string }) => (
-    <svg viewBox="0 0 40 40" fill="none">
-        <rect x="4" y="13" width="32" height="14" rx="3" stroke={color} strokeWidth="2" fill="none" />
-        {/* Memory slots */}
-        {[9, 14, 19, 24].map(x => (
-            <rect key={x} x={x} y="16" width="3.5" height="8" rx="0.8" stroke={color} strokeWidth="1.5" fill="none" />
-        ))}
-        {/* Legs */}
-        {[10, 14, 18, 22, 26, 30].map(x => (
-            <line key={x} x1={x} y1="27" x2={x} y2="31" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
-        ))}
-        <rect x="30" y="16" width="3" height="8" rx="0.8" fill={color} opacity="0.4" />
-    </svg>
+  <svg viewBox="0 0 40 40" fill="none">
+    <rect x="4" y="13" width="32" height="14" rx="3" stroke={color} strokeWidth="2" fill="none" />
+    {/* Memory slots */}
+    {[9, 14, 19, 24].map(x => (
+      <rect key={x} x={x} y="16" width="3.5" height="8" rx="0.8" stroke={color} strokeWidth="1.5" fill="none" />
+    ))}
+    {/* Legs */}
+    {[10, 14, 18, 22, 26, 30].map(x => (
+      <line key={x} x1={x} y1="27" x2={x} y2="31" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+    ))}
+    <rect x="30" y="16" width="3" height="8" rx="0.8" fill={color} opacity="0.4" />
+  </svg>
 );
 
 const StorageIcon = ({ color }: { color: string }) => (
-    <svg viewBox="0 0 40 40" fill="none">
-        <rect x="6" y="7" width="28" height="8" rx="2.5" stroke={color} strokeWidth="2" fill="none" />
-        <rect x="6" y="16" width="28" height="8" rx="2.5" stroke={color} strokeWidth="2" fill="none" />
-        <rect x="6" y="25" width="28" height="8" rx="2.5" stroke={color} strokeWidth="2" fill="none" />
-        <circle cx="30" cy="11" r="2" fill={color} opacity="0.5" />
-        <circle cx="30" cy="20" r="2" fill={color} />
-        <circle cx="30" cy="29" r="2" fill={color} />
-        <line x1="10" y1="11" x2="22" y2="11" stroke={color} strokeWidth="1.5" opacity="0.4" />
-        <line x1="10" y1="20" x2="22" y2="20" stroke={color} strokeWidth="1.5" opacity="0.4" />
-        <line x1="10" y1="29" x2="22" y2="29" stroke={color} strokeWidth="1.5" opacity="0.4" />
-    </svg>
+  <svg viewBox="0 0 40 40" fill="none">
+    <rect x="6" y="7" width="28" height="8" rx="2.5" stroke={color} strokeWidth="2" fill="none" />
+    <rect x="6" y="16" width="28" height="8" rx="2.5" stroke={color} strokeWidth="2" fill="none" />
+    <rect x="6" y="25" width="28" height="8" rx="2.5" stroke={color} strokeWidth="2" fill="none" />
+    <circle cx="30" cy="11" r="2" fill={color} opacity="0.5" />
+    <circle cx="30" cy="20" r="2" fill={color} />
+    <circle cx="30" cy="29" r="2" fill={color} />
+    <line x1="10" y1="11" x2="22" y2="11" stroke={color} strokeWidth="1.5" opacity="0.4" />
+    <line x1="10" y1="20" x2="22" y2="20" stroke={color} strokeWidth="1.5" opacity="0.4" />
+    <line x1="10" y1="29" x2="22" y2="29" stroke={color} strokeWidth="1.5" opacity="0.4" />
+  </svg>
 );
 
 const NetworkIcon = ({ color }: { color: string }) => (
-    <svg viewBox="0 0 40 40" fill="none">
-        <circle cx="20" cy="20" r="4" fill={color} />
-        <circle cx="8" cy="12" r="3" stroke={color} strokeWidth="1.8" fill="none" />
-        <circle cx="32" cy="12" r="3" stroke={color} strokeWidth="1.8" fill="none" />
-        <circle cx="8" cy="28" r="3" stroke={color} strokeWidth="1.8" fill="none" />
-        <circle cx="32" cy="28" r="3" stroke={color} strokeWidth="1.8" fill="none" />
-        <line x1="11" y1="13.5" x2="17" y2="17.5" stroke={color} strokeWidth="1.5" />
-        <line x1="29" y1="13.5" x2="23" y2="17.5" stroke={color} strokeWidth="1.5" />
-        <line x1="11" y1="26.5" x2="17" y2="22.5" stroke={color} strokeWidth="1.5" />
-        <line x1="29" y1="26.5" x2="23" y2="22.5" stroke={color} strokeWidth="1.5" />
-    </svg>
+  <svg viewBox="0 0 40 40" fill="none">
+    <circle cx="20" cy="20" r="4" fill={color} />
+    <circle cx="8" cy="12" r="3" stroke={color} strokeWidth="1.8" fill="none" />
+    <circle cx="32" cy="12" r="3" stroke={color} strokeWidth="1.8" fill="none" />
+    <circle cx="8" cy="28" r="3" stroke={color} strokeWidth="1.8" fill="none" />
+    <circle cx="32" cy="28" r="3" stroke={color} strokeWidth="1.8" fill="none" />
+    <line x1="11" y1="13.5" x2="17" y2="17.5" stroke={color} strokeWidth="1.5" />
+    <line x1="29" y1="13.5" x2="23" y2="17.5" stroke={color} strokeWidth="1.5" />
+    <line x1="11" y1="26.5" x2="17" y2="22.5" stroke={color} strokeWidth="1.5" />
+    <line x1="29" y1="26.5" x2="23" y2="22.5" stroke={color} strokeWidth="1.5" />
+  </svg>
 );
 
 /* ── Data ──────────────────────────────────────────────── */
 const RESOURCES = [
-    { label: 'CPU', desc: 'Compute cores usage & costs', color: '#10B981', Icon: CPUIcon },
-    { label: 'GPU', desc: 'Accelerator workloads & spend', color: '#F59E0B', Icon: GPUIcon },
-    { label: 'RAM', desc: 'Memory allocations & requests', color: '#0089D6', Icon: RAMIcon },
-    { label: 'Storage', desc: 'Persistent volume spend', color: '#4285F4', Icon: StorageIcon },
-    { label: 'Network', desc: 'Egress & ingress transfer costs', color: '#8B5CF6', Icon: NetworkIcon },
+  { label: 'CPU', desc: 'Compute cores usage & costs', color: 'var(--color-cpu)', Icon: CPUIcon },
+  { label: 'GPU', desc: 'Accelerator workloads & spend', color: 'var(--color-gpu)', Icon: GPUIcon },
+  { label: 'RAM', desc: 'Memory allocations & requests', color: 'var(--color-ram)', Icon: RAMIcon },
+  { label: 'Storage', desc: 'Persistent volume spend', color: 'var(--color-storage)', Icon: StorageIcon },
+  { label: 'Network', desc: 'Egress & ingress transfer costs', color: 'var(--color-network)', Icon: NetworkIcon },
 ];
 
 /* ── Component ─────────────────────────────────────────── */
 export const ResourcesSection: React.FC = () => (
-    <Section id="resources">
-        <Inner>
-            <SectionHeader>
-                <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                    <Eyebrow>Infrastructure Resources</Eyebrow>
-                    <SectionTitle>
-                        Every resource tracked,<br />accounted for
-                    </SectionTitle>
-                    <SectionSub>
-                        Kubecost breaks your cloud bill down by every infrastructure component —
-                        so you know exactly where every dollar goes.
-                    </SectionSub>
-                </motion.div>
-            </SectionHeader>
+  <Section id="resources">
+    <Inner>
+      <SectionHeader>
+        <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <Eyebrow>Infrastructure Resources</Eyebrow>
+          <SectionTitle>
+            Every resource tracked,<br />accounted for
+          </SectionTitle>
+          <SectionSub>
+            Kubecost breaks your cloud bill down by every infrastructure component —
+            so you know exactly where every dollar goes.
+          </SectionSub>
+        </motion.div>
+      </SectionHeader>
 
-            <Grid>
-                {RESOURCES.map(({ label, desc, color, Icon }, i) => (
-                    <Card
-                        key={label}
-                        $color={color}
-                        initial={{ opacity: 0, y: 28 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.1, duration: 0.5 }}
-                        whileHover={{ y: -6, scale: 1.03 }}
-                    >
-                        <IconBox $color={color}>
-                            <Icon color={color} />
-                        </IconBox>
-                        <Label>{label}</Label>
-                        <Desc>{desc}</Desc>
-                    </Card>
-                ))}
-            </Grid>
-        </Inner>
-    </Section>
+      <Grid>
+        {RESOURCES.map(({ label, desc, color, Icon }, i) => (
+          <Card
+            key={label}
+            $color={color}
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.1, duration: 0.5 }}
+            whileHover={{ y: -6, scale: 1.03 }}
+          >
+            <IconBox $color={color}>
+              <Icon color={color} />
+            </IconBox>
+            <Label>{label}</Label>
+            <Desc>{desc}</Desc>
+          </Card>
+        ))}
+      </Grid>
+    </Inner>
+  </Section>
 );

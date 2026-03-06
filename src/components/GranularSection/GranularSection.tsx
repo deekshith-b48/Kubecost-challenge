@@ -274,7 +274,7 @@ const EffBar = styled.div<{ $pct: number }>`
     display: block;
     height: 100%;
     width: ${({ $pct }) => $pct}%;
-    background: ${({ $pct }) => $pct < 30 ? '#EF4444' : $pct < 60 ? '#F59E0B' : '#10B981'};
+    background: ${({ $pct }) => $pct < 30 ? 'var(--color-accent-error)' : $pct < 60 ? 'var(--color-accent-warning)' : 'var(--color-accent-success)'};
     border-radius: 3px;
   }
 `;

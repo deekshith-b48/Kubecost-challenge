@@ -319,158 +319,158 @@ const OptiBtn = styled(motion.button)`
 
 /* ── Data ──────────────────────────────────────────────── */
 const BREAKDOWN = [
-    { label: 'Right-size cluster nodes', amount: 230, max: 613 },
-    { label: 'Right-size container requests', amount: 175, max: 613 },
-    { label: 'Remedy abandoned workloads', amount: 110, max: 613 },
-    { label: 'Reserve instances', amount: 98, max: 613 },
+  { label: 'Right-size cluster nodes', amount: 230, max: 613 },
+  { label: 'Right-size container requests', amount: 175, max: 613 },
+  { label: 'Remedy abandoned workloads', amount: 110, max: 613 },
+  { label: 'Reserve instances', amount: 98, max: 613 },
 ];
 const TOTAL_SAVINGS = 613;
 
 const USAGE_BARS = [
-    { label: 'CPU Usage', pct: 9, color: '#10B981', display: '63M / 700M' },
-    { label: 'CPU Request', pct: 100, color: 'rgba(255,255,255,0.2)', display: '700M' },
-    { label: 'Mem Usage', pct: 11, color: '#0089D6', display: '557MiB / 5GiB' },
-    { label: 'Mem Request', pct: 100, color: 'rgba(255,255,255,0.2)', display: '5 GiB' },
+  { label: 'CPU Usage', pct: 9, color: 'var(--color-cpu)', display: '63M / 700M' },
+  { label: 'CPU Request', pct: 100, color: 'var(--color-border)', display: '700M' },
+  { label: 'Mem Usage', pct: 11, color: 'var(--color-ram)', display: '557MiB / 5GiB' },
+  { label: 'Mem Request', pct: 100, color: 'var(--color-border)', display: '5 GiB' },
 ];
 
 /* ── Component ─────────────────────────────────────────── */
 export const SavingsSection: React.FC = () => (
-    <Section id="savings">
-        <Inner>
-            <SectionHeader>
-                <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                    <HeroBadge
-                        initial={{ scale: 0.9, opacity: 0 }}
-                        whileInView={{ scale: 1, opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, type: 'spring' }}
-                    >
-                        <SavingsPct>70%</SavingsPct>
-                        Saved on average
-                    </HeroBadge>
-                    <Eyebrow>Optimization Engine</Eyebrow>
-                    <SectionTitle>
-                        Slash cloud waste<br />with surgical precision
-                    </SectionTitle>
-                    <SectionSub>
-                        Our ML-driven engine analyzes actual vs. requested resources, identifying
-                        exactly where you&apos;re overspending — and by how much.
-                    </SectionSub>
-                </motion.div>
-            </SectionHeader>
+  <Section id="savings">
+    <Inner>
+      <SectionHeader>
+        <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <HeroBadge
+            initial={{ scale: 0.9, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, type: 'spring' }}
+          >
+            <SavingsPct>70%</SavingsPct>
+            Saved on average
+          </HeroBadge>
+          <Eyebrow>Optimization Engine</Eyebrow>
+          <SectionTitle>
+            Slash cloud waste<br />with surgical precision
+          </SectionTitle>
+          <SectionSub>
+            Our ML-driven engine analyzes actual vs. requested resources, identifying
+            exactly where you&apos;re overspending — and by how much.
+          </SectionSub>
+        </motion.div>
+      </SectionHeader>
 
-            <TwoCols>
-                {/* Left — usage card */}
-                <UsageCard
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+      <TwoCols>
+        {/* Left — usage card */}
+        <UsageCard
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <UsageTitle>Resource Usage vs Requests — Azure Staging</UsageTitle>
+
+          <MetricsGrid>
+            <MetricItem>
+              <MetricLabel>CPU Usage</MetricLabel>
+              <MetricValue>63<MetricUnit>M</MetricUnit></MetricValue>
+            </MetricItem>
+            <MetricItem>
+              <MetricLabel>CPU Request</MetricLabel>
+              <MetricValue>700<MetricUnit>M</MetricUnit></MetricValue>
+            </MetricItem>
+            <MetricItem>
+              <MetricLabel>Memory Usage</MetricLabel>
+              <MetricValue>557<MetricUnit>MiB</MetricUnit></MetricValue>
+            </MetricItem>
+            <MetricItem>
+              <MetricLabel>Memory Request</MetricLabel>
+              <MetricValue>5<MetricUnit>GiB</MetricUnit></MetricValue>
+            </MetricItem>
+          </MetricsGrid>
+
+          <UsageTitle style={{ marginBottom: '1rem' }}>Usage Overview</UsageTitle>
+          <UsageBarGroup>
+            {USAGE_BARS.map((b, i) => (
+              <UsageBarRow key={b.label}>
+                <UsageBarLabel>{b.label}</UsageBarLabel>
+                <UsageTrack>
+                  <UsageFill
+                    $color={b.color}
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${b.pct}%` }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <UsageTitle>Resource Usage vs Requests — Azure Staging</UsageTitle>
+                    transition={{ delay: 0.3 + i * 0.1, duration: 0.8 }}
+                  />
+                </UsageTrack>
+                <UsagePct>{b.display}</UsagePct>
+              </UsageBarRow>
+            ))}
+          </UsageBarGroup>
 
-                    <MetricsGrid>
-                        <MetricItem>
-                            <MetricLabel>CPU Usage</MetricLabel>
-                            <MetricValue>63<MetricUnit>M</MetricUnit></MetricValue>
-                        </MetricItem>
-                        <MetricItem>
-                            <MetricLabel>CPU Request</MetricLabel>
-                            <MetricValue>700<MetricUnit>M</MetricUnit></MetricValue>
-                        </MetricItem>
-                        <MetricItem>
-                            <MetricLabel>Memory Usage</MetricLabel>
-                            <MetricValue>557<MetricUnit>MiB</MetricUnit></MetricValue>
-                        </MetricItem>
-                        <MetricItem>
-                            <MetricLabel>Memory Request</MetricLabel>
-                            <MetricValue>5<MetricUnit>GiB</MetricUnit></MetricValue>
-                        </MetricItem>
-                    </MetricsGrid>
+          <SavingsHighlight>
+            <SavingsLabel>
+              <div>Estimated Savings</div>
+              <div style={{ fontSize: '0.58rem', marginTop: 2, color: 'var(--color-text-tertiary)' }}>
+                from this namespace alone
+              </div>
+            </SavingsLabel>
+            <SavingsAmount>$237.4<span style={{ fontSize: '0.8rem', fontWeight: 600 }}>/mo</span></SavingsAmount>
+          </SavingsHighlight>
+        </UsageCard>
 
-                    <UsageTitle style={{ marginBottom: '1rem' }}>Usage Overview</UsageTitle>
-                    <UsageBarGroup>
-                        {USAGE_BARS.map((b, i) => (
-                            <UsageBarRow key={b.label}>
-                                <UsageBarLabel>{b.label}</UsageBarLabel>
-                                <UsageTrack>
-                                    <UsageFill
-                                        $color={b.color}
-                                        initial={{ width: 0 }}
-                                        whileInView={{ width: `${b.pct}%` }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: 0.3 + i * 0.1, duration: 0.8 }}
-                                    />
-                                </UsageTrack>
-                                <UsagePct>{b.display}</UsagePct>
-                            </UsageBarRow>
-                        ))}
-                    </UsageBarGroup>
+        {/* Right — breakdown */}
+        <BreakdownCard
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          <BreakdownTitle>Monthly Savings Breakdown</BreakdownTitle>
 
-                    <SavingsHighlight>
-                        <SavingsLabel>
-                            <div>Estimated Savings</div>
-                            <div style={{ fontSize: '0.58rem', marginTop: 2, color: 'var(--color-text-tertiary)' }}>
-                                from this namespace alone
-                            </div>
-                        </SavingsLabel>
-                        <SavingsAmount>$237.4<span style={{ fontSize: '0.8rem', fontWeight: 600 }}>/mo</span></SavingsAmount>
-                    </SavingsHighlight>
-                </UsageCard>
-
-                {/* Right — breakdown */}
-                <BreakdownCard
-                    initial={{ opacity: 0, x: 30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+          <BreakdownList>
+            {BREAKDOWN.map(({ label, amount, max }, i) => (
+              <BreakdownItem key={label}>
+                <BreakdownHeader>
+                  <BreakdownName>{label}</BreakdownName>
+                  <BreakdownAmt>
+                    $<CountUp end={amount} duration={1.8} />
+                    <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--color-text-tertiary)' }}>/mo</span>
+                  </BreakdownAmt>
+                </BreakdownHeader>
+                <BreakdownTrack>
+                  <BreakdownFill
+                    $pct={(amount / max) * 100}
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${(amount / max) * 100}%` }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.1 }}
-                >
-                    <BreakdownTitle>Monthly Savings Breakdown</BreakdownTitle>
+                    transition={{ delay: 0.2 + i * 0.1, duration: 0.8 }}
+                  />
+                </BreakdownTrack>
+              </BreakdownItem>
+            ))}
+          </BreakdownList>
 
-                    <BreakdownList>
-                        {BREAKDOWN.map(({ label, amount, max }, i) => (
-                            <BreakdownItem key={label}>
-                                <BreakdownHeader>
-                                    <BreakdownName>{label}</BreakdownName>
-                                    <BreakdownAmt>
-                                        $<CountUp end={amount} duration={1.8} />
-                                        <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--color-text-tertiary)' }}>/mo</span>
-                                    </BreakdownAmt>
-                                </BreakdownHeader>
-                                <BreakdownTrack>
-                                    <BreakdownFill
-                                        $pct={(amount / max) * 100}
-                                        initial={{ width: 0 }}
-                                        whileInView={{ width: `${(amount / max) * 100}%` }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: 0.2 + i * 0.1, duration: 0.8 }}
-                                    />
-                                </BreakdownTrack>
-                            </BreakdownItem>
-                        ))}
-                    </BreakdownList>
+          <TotalSavings>
+            <div>
+              <TotalLabel>Total Potential Savings</TotalLabel>
+              <div style={{ fontSize: '0.72rem', color: 'var(--color-text-tertiary)', marginTop: 3 }}>
+                Per month, across all providers
+              </div>
+            </div>
+            <TotalValue>
+              $<CountUp end={TOTAL_SAVINGS} duration={2} />
+              <span style={{ fontSize: '0.85rem', fontWeight: 600 }}>/mo</span>
+            </TotalValue>
+          </TotalSavings>
 
-                    <TotalSavings>
-                        <div>
-                            <TotalLabel>Total Potential Savings</TotalLabel>
-                            <div style={{ fontSize: '0.72rem', color: 'var(--color-text-tertiary)', marginTop: 3 }}>
-                                Per month, across all providers
-                            </div>
-                        </div>
-                        <TotalValue>
-                            $<CountUp end={TOTAL_SAVINGS} duration={2} />
-                            <span style={{ fontSize: '0.85rem', fontWeight: 600 }}>/mo</span>
-                        </TotalValue>
-                    </TotalSavings>
-
-                    <OptiBtn
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                    >
-                        Start Optimizing →
-                    </OptiBtn>
-                </BreakdownCard>
-            </TwoCols>
-        </Inner>
-    </Section>
+          <OptiBtn
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Start Optimizing →
+          </OptiBtn>
+        </BreakdownCard>
+      </TwoCols>
+    </Inner>
+  </Section>
 );
